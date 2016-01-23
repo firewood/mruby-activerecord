@@ -29,6 +29,10 @@ module ActiveRecord
       self
     end
 
+    def is_a?(kind)
+      kind == Relation || kind == Array
+    end
+
     def to_a
       load
       @result
@@ -40,6 +44,10 @@ module ActiveRecord
 
     def each(&block)
       to_a.each { |row| block.call(row) }
+    end
+
+    def map(&block)
+      to_a.map { |row| block.call(row) }
     end
 
     def inspect

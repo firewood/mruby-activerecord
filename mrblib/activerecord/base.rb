@@ -54,6 +54,18 @@ module ActiveRecord
       @attributes
     end
 
+    def is_a?(kind)
+      kind == self.class || kind == Hash
+    end
+
+    def each(&block)
+      @attributes.each { |k, v| block.call(k, v) }
+    end
+
+    def map(&block)
+      @attributes.map { |k, v| block.call(k, v) }
+    end
+
     def to_s
       "#<#{self.class.to_s} #{attributes}>"
     end
